@@ -16,7 +16,10 @@ public class SecurityConfig {
     //Minimal Basic Authentication
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.httpBasic(withDefaults());
+//        http.httpBasic(withDefaults());// it will allow for all endpoints so write below code
+        http.authorizeHttpRequests(auth->
+                auth.anyRequest().authenticated())
+                .httpBasic(withDefaults());
         return http.build();
     }
 
