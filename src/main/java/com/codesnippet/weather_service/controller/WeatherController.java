@@ -59,4 +59,9 @@ public class WeatherController {
         weatherService.deleteWeather(city);
         return "Weather data for " + city + " has been deleted and cache evicted.";
     }
+
+    @GetMapping("/health")
+    public String gethealth() {
+        return "Weather service is up and running";
+    }
 }
