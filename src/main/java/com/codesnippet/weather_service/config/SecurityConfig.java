@@ -1,11 +1,14 @@
 package com.codesnippet.weather_service.config;
 
+import com.codesnippet.weather_service.entity.Permissions;
+import com.codesnippet.weather_service.entity.Role;
 import com.codesnippet.weather_service.filters.JWTAuthFilter;
 import com.codesnippet.weather_service.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,6 +39,11 @@ public class SecurityConfig {
         http.csrf(csrf-> csrf.disable())
                 .authorizeHttpRequests(auth->
                 auth.requestMatchers("/authenticate").permitAll()
+//                        .requestMatchers("/weather/health").hasRole("ADMIN")
+//                        .requestMatchers("/weather/health").hasRole(Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/weather/**").hasAnyAuthority(Permissions.WEATHER_READ.name())
+                        .requestMatchers(HttpMethod.POST,"/weather/**").hasAnyAuthority(Permissions.WEATHER_WRITE.name())
+                        .requestMatchers(HttpMethod.DELETE,"/weather/**").hasAnyAuthority(Permissions.WEATHER_DELETE.name())
                         . anyRequest().authenticated());
 //                .httpBasic(withDefaults());// Remove Basic Authentication filter
 
