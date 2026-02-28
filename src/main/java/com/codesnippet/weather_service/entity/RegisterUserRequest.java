@@ -13,6 +13,15 @@ public class RegisterUserRequest {
         this.username = username;
     }
 
+    public RegisterUserRequest(String username, String password, Role role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+
+    public RegisterUserRequest() {
+    }
+
     public String getPassword() {
         return password;
     }

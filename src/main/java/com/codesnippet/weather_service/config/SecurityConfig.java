@@ -41,6 +41,7 @@ public class SecurityConfig {
         http.csrf(csrf-> csrf.disable())
                 .authorizeHttpRequests(auth->
                 auth.requestMatchers("/authenticate").permitAll()
+                        .requestMatchers("/api/users/register").permitAll()
 //                        .requestMatchers("/weather/health").hasRole("ADMIN")
 //                        .requestMatchers("/weather/health").hasRole(Role.ADMIN.name())
                         //.requestMatchers(HttpMethod.GET, "/weather/**").hasAnyAuthority(Permissions.WEATHER_READ.name())
